@@ -60,13 +60,18 @@ int main(int argc, char const *argv[]) {
         iv[i] = i * 2;
     }
 
-    const char *plaintext = "This is a";
+    const char *plaintext = "This character is pretty long and should be encrypted";
     int plaintext_len = strlen(plaintext);
     unsigned char ciphertext[plaintext_len + BLOCK_SIZE];
     unsigned char decryptedtext[plaintext_len + BLOCK_SIZE];
 
     encrypt_cbc(ciphertext, plaintext, plaintext_len, key, iv);
-    printf("Enc: %s\n", ciphertext);
+    // printf("Enc: %s\n", ciphertext);
+    #ifdef DEBUG_
+    for (i = 0; ciphertext[i] != '\0'; i++) {
+        printf("%d\n", (int)ciphertext[i]);
+    }
+    #endif
     decrypt_cbc(decryptedtext, ciphertext, strlen(ciphertext), key, iv);
     printf("Dec: %s\n", decryptedtext);
 }
